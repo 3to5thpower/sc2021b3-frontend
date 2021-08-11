@@ -1,6 +1,6 @@
 // The Auth0 client, initialized in configureClient()
 let auth0 = null;
-let apiEndpoint = "https://dvhrde83ui.execute-api.ap-northeast-1.amazonaws.com/";
+let apiEndpoint = "https://erj4ar35n2.execute-api.ap-northeast-1.amazonaws.com/";
 
 /**
  * Starts the authentication flow
@@ -81,7 +81,7 @@ const callApi = async () => {
     const token = await auth0.getTokenSilently();
 
     const response = await fetch(apiEndpoint, {
-      headers: {Authorization: `Bearer ${token}`}
+      headers: { Authorization: `Bearer ${token}` }
     });
 
     const responseData = await response.json();
@@ -137,7 +137,7 @@ const callApiWithUser = async () => {
 
     const url = apiEndpoint + '?user=' + username;
     const response = await fetch(url, {
-      headers: {Authorization: `Bearer ${token}`}
+      headers: { Authorization: `Bearer ${token}` }
     });
 
     const responseData = await response.json();
