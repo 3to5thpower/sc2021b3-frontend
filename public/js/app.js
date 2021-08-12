@@ -75,7 +75,11 @@ const requireAuth = async (fn, targetUrl) => {
 
 /**
  * ログイン中ユーザの投稿一覧を表示
- */
+*/
+
+
+
+
 const callApi = async () => {
   try {
     const token = await auth0.getTokenSilently();
@@ -114,11 +118,7 @@ const callApi = async () => {
         newRow.querySelector('.post-body').removeChild(newRow.querySelector('.post-body').firstChild);
       }
 
-      if (post.tagname != null) {
-        newRow.querySelector('.post-tagname').textContent = post.tagname;
-      } else {
-        newRow.querySelector('.post-tagname').textContent = "-";
-      }
+      newRow.querySelector('.post-tagname').textContent = post.tagname || "";
       resultTbody.appendChild(newRow);
     });
 
@@ -169,11 +169,8 @@ const callApiWithUser = async () => {
       newRow.querySelector('.post-username').textContent = post.username;
       newRow.querySelector('.post-date').textContent = new Date(post.created_at * 1000).toLocaleString('ja-jp');
       newRow.querySelector('.post-body .text').textContent = post.body;
-      if (post.tagname) {
-        newRow.querySelector('.post-tagname').textContent = post.tagname;
-      } else {
-        newRow.querySelector('.post-tagname').textContent = "-";
-      }
+      newRow.querySelector('.post-tagname').textContent = post.tagname || "";
+
       if (post.imageUrl) {
         newRow.querySelector('.post-body').querySelector('a').setAttribute('href', post.imageUrl);
         newRow.querySelector('.post-body').querySelector('img').setAttribute('src', post.imageUrl);
@@ -189,6 +186,61 @@ const callApiWithUser = async () => {
     console.error(e);
   }
 };
+
+/**
+ * 指定したタグの投稿一覧を表示
+ */
+const callApiWithTag = async () => {
+  try {
+    const tagname = document.querySelector('#tagname').value;
+    if (!tagname) {
+      return;
+    }
+
+    const url = apiEndpoint + 'tagname?tagname=' + tagname;
+    const response = await fetch(url);
+
+    const responseData = await response.json();
+    const posts = responseData.posts;
+
+    const templateRow = document.querySelector('#post-template-row');
+    const resultTbody = document.querySelector('#tag-posts tbody');
+
+    while (resultTbody.firstChild) {
+      resultTbody.removeChild(resultTbody.firstChild);
+    }
+
+    if (posts.length === 0) {
+      // 投稿が見つからない
+      eachElement("#tag-posts", (c) => c.classList.add("hidden"));
+      document.querySelector('#tag-result-alert').textContent = "投稿が見つかりません。";
+      eachElement("#tag-result-alert", (c) => c.classList.remove("hidden"));
+      return;
+    }
+
+    posts.forEach((post) => {
+      const newRow = templateRow.cloneNode(true);
+      newRow.querySelector('.post-username').textContent = post.username;
+      newRow.querySelector('.post-date').textContent = new Date(post.created_at * 1000).toLocaleString('ja-jp');
+      newRow.querySelector('.post-body .text').textContent = post.body;
+      newRow.querySelector('.post-tagname').textContent = post.tagname || "";
+
+      if (post.imageUrl) {
+        newRow.querySelector('.post-body').querySelector('a').setAttribute('href', post.imageUrl);
+        newRow.querySelector('.post-body').querySelector('img').setAttribute('src', post.imageUrl);
+      } else {
+        newRow.querySelector('.post-body').removeChild(newRow.querySelector('.post-body').querySelector('a'));
+      }
+      resultTbody.appendChild(newRow);
+    });
+
+    eachElement("#tag-result-alert", (c) => c.classList.add("hidden"));
+    eachElement("#tag-posts", (c) => c.classList.remove("hidden"));
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 
 const callPostApi = async () => {
   try {
@@ -248,6 +300,10 @@ window.onload = async () => {
     } else if (e.target.getAttribute("id") === "call-post-api") {
       e.preventDefault();
       callPostApi();
+    } else if (e.target.getAttribute("id") === "call-tag-api") {
+      e.preventDefault();
+      showContentFromUrl("/tagname");
+      callTagApi();
     }
   });
 

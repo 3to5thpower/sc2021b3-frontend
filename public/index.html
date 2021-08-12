@@ -46,6 +46,13 @@
 
               <!-- Fullsize dropdown: show if authenticated -->
               <li class="nav-item dropdown auth-visible hidden">
+                <form class="form-inline" id="getForm">
+                  <p class="form-group mb-1 auth-visible">
+                    <label for="tagname">Tagname</label>
+                    <input type="text" size="20" id="tagname" name="tagname" class="form-control" required></input>
+                    <a href="#" class="btn btn-primary" id="call-tag-api">検索</a>
+                  </p>
+                </form>
                 <a class="nav-link dropdown-toggle" href="#" id="profileDropDown" data-toggle="dropdown">
                   <!-- Profile image should be set to the profile picture from the id token -->
                   <img alt="Profile picture" class="nav-user-profile profile-image rounded-circle" width="50" />
@@ -211,6 +218,23 @@
 
       <div class="page hidden" id="content-external-api">
         <!-- Auth0サンプルの残滓 -->
+      </div>
+      <div class="page hidden" id="content-tagname">
+        <!-- 多分ここにタグの説明 -->
+        <div class="alert alert-warning hidden" role="alert" id="tag-result-alert"></div>
+        <div class="reset-on-nav w-100 mb-5 " id="result">
+          <table id="tag-posts" border="border" class="w-100 hidden">
+            <thead>
+              <tr>
+                <th>投稿者</th>
+                <th>投稿時刻</th>
+                <th>タグ</th>
+                <th>本文</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
     </div>
 
