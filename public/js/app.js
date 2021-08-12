@@ -113,7 +113,13 @@ const callApi = async () => {
       } else {
         newRow.querySelector('.post-body').removeChild(newRow.querySelector('.post-body').firstChild);
       }
-      newRow.querySelector('.post-tagname').textContent = post.getElementsByTagName;
+
+      if (post.tagname) {
+        newRow.querySelector('.post-tagname').textContent = post.tagname;
+      } else {
+        newRow.querySelector('.post-tagname').textContent = "-";
+      }
+      //newRow.querySelector('.post-tagname').textContent = post.getElementsByTagName;
       resultTbody.appendChild(newRow);
     });
 
@@ -164,7 +170,11 @@ const callApiWithUser = async () => {
       newRow.querySelector('.post-username').textContent = post.username;
       newRow.querySelector('.post-date').textContent = new Date(post.created_at * 1000).toLocaleString('ja-jp');
       newRow.querySelector('.post-body .text').textContent = post.body;
-      newRow.querySelector('.post-tagname').textContent = post.tagname;
+      if (post.tagname) {
+        newRow.querySelector('.post-tagname').textContent = post.tagname;
+      } else {
+        newRow.querySelector('.post-tagname').textContent = "-";
+      }
       if (post.imageUrl) {
         newRow.querySelector('.post-body').querySelector('a').setAttribute('href', post.imageUrl);
         newRow.querySelector('.post-body').querySelector('img').setAttribute('src', post.imageUrl);
