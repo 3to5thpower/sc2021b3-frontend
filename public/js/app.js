@@ -234,6 +234,15 @@ const callApiWithTag = async () => {
       resultTbody.appendChild(newRow);
     });
 
+    /* 
+      tagの説明を取ってくる
+    */
+
+    const tagInfo = "test"
+    if (tagInfo) {
+      querySelector('#tag-info').textContent = tagInfo
+    }
+
     eachElement("#tag-result-alert", (c) => c.classList.add("hidden"));
     eachElement("#tag-posts", (c) => c.classList.remove("hidden"));
   } catch (e) {
