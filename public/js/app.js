@@ -114,7 +114,7 @@ const callApi = async () => {
         newRow.querySelector('.post-body').removeChild(newRow.querySelector('.post-body').firstChild);
       }
 
-      if (post.tagname) {
+      if (post.tagname != null) {
         newRow.querySelector('.post-tagname').textContent = post.tagname;
       } else {
         newRow.querySelector('.post-tagname').textContent = "-";
