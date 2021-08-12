@@ -113,6 +113,7 @@ const callApi = async () => {
       } else {
         newRow.querySelector('.post-body').removeChild(newRow.querySelector('.post-body').firstChild);
       }
+      newRow.querySelector('.post-body .tagname').textContent = post.getElementsByTagName;
       resultTbody.appendChild(newRow);
     });
 
@@ -163,6 +164,7 @@ const callApiWithUser = async () => {
       newRow.querySelector('.post-username').textContent = post.username;
       newRow.querySelector('.post-date').textContent = new Date(post.created_at * 1000).toLocaleString('ja-jp');
       newRow.querySelector('.post-body .text').textContent = post.body;
+      newRow.querySelector('.post-body .tagname').textContent = post.tagname;
       if (post.imageUrl) {
         newRow.querySelector('.post-body').querySelector('a').setAttribute('href', post.imageUrl);
         newRow.querySelector('.post-body').querySelector('img').setAttribute('src', post.imageUrl);
@@ -184,10 +186,12 @@ const callPostApi = async () => {
     const token = await auth0.getTokenSilently();
 
     const body = document.querySelector('#body').value;
+    const tag = document.querySelector('#tagname').value;
 
     const formData = new FormData();
     formData.append('body', body);
     formData.append('image', document.querySelector('#image').files[0]);
+    formData.append('tagname', tag);
     const options = {
       method: 'post',
       body: formData,

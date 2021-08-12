@@ -1,287 +1,246 @@
 <!DOCTYPE html>
 <html class="h-100">
-  <head>
-    <meta charset="UTF-8" />
-    <title>seccamp B3 sample app</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" type="text/css" href="/css/main.css" />
-    <link
-      rel="stylesheet"
-      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/monokai-sublime.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.7.2/css/solid.css"
-      integrity="sha384-r/k8YTFqmlOaqRkZuSiE9trsrDXkh07mRaoGBMoDcmA58OHILZPsk29i2BsFng1B"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css"
-      integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+"
-      crossorigin="anonymous"
-    />
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.auth0.com/js/auth0-samples-theme/1.0/css/auth0-theme.min.css"
-    />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <title>seccamp B3 sample app</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/main.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/monokai-sublime.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/solid.css"
+    integrity="sha384-r/k8YTFqmlOaqRkZuSiE9trsrDXkh07mRaoGBMoDcmA58OHILZPsk29i2BsFng1B" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css"
+    integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous" />
 
-  <body class="h-100">
-    <div id="app" class="h-100 d-flex flex-column">
-      <div class="nav-container">
-        <nav class="navbar navbar-expand-md navbar-light bg-light">
-          <div class="container">
-            <div class="navbar-brand logo"></div>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
+  <link rel="stylesheet" href="https://cdn.auth0.com/js/auth0-samples-theme/1.0/css/auth0-theme.min.css" />
+</head>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                  <a href="/" class="nav-link route-link">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a
-                    href="/profile"
-                    class="nav-link route-link hidden auth-visible"
-                    >自分の投稿</a
-                  >
-                </li>
-              </ul>
-              <ul class="navbar-nav d-none d-md-block">
-                <!-- Login button: show if NOT authenticated -->
-                <li class="nav-item auth-invisible">
-                  <button
-                    id="qsLoginBtn"
-                    onclick="login()"
-                    class="btn btn-primary btn-margin auth-invisible hidden"
-                  >
-                    Log in
-                  </button>
-                </li>
-                <!-- / Login button -->
+<body class="h-100">
+  <div id="app" class="h-100 d-flex flex-column">
+    <div class="nav-container">
+      <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container">
+          <div class="navbar-brand logo"></div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-                <!-- Fullsize dropdown: show if authenticated -->
-                <li class="nav-item dropdown auth-visible hidden">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="profileDropDown"
-                    data-toggle="dropdown"
-                  >
-                    <!-- Profile image should be set to the profile picture from the id token -->
-                    <img
-                      alt="Profile picture"
-                      class="nav-user-profile profile-image rounded-circle"
-                      width="50"
-                    />
-                  </a>
-                  <div class="dropdown-menu">
-                    <!-- Show the user's full name from the id token here -->
-                    <div class="dropdown-header nav-user-name user-name"></div>
-                    <a
-                      href="/profile"
-                      class="dropdown-item dropdown-profile route-link"
-                    >
-                      <i class="fas fa-user mr-3"></i> Profile
-                    </a>
-                    <a
-                      href="#"
-                      class="dropdown-item"
-                      id="qsLogoutBtn"
-                      onclick="logout()"
-                    >
-                      <i class="fas fa-power-off mr-3"></i> Log out
-                    </a>
-                  </div>
-                </li>
-                <!-- /Fullsize dropdown -->
-              </ul>
-
-              <!-- Responsive login button: show if NOT authenticated -->
-              <ul class="navbar-nav d-md-none auth-invisible">
-                <button
-                  class="btn btn-primary btn-block auth-invisible hidden"
-                  id="qsLoginBtn"
-                  onclick="login()"
-                >
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a href="/" class="nav-link route-link">Home</a>
+              </li>
+              <li class="nav-item">
+                <a href="/profile" class="nav-link route-link hidden auth-visible">自分の投稿</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav d-none d-md-block">
+              <!-- Login button: show if NOT authenticated -->
+              <li class="nav-item auth-invisible">
+                <button id="qsLoginBtn" onclick="login()" class="btn btn-primary btn-margin auth-invisible hidden">
                   Log in
                 </button>
-              </ul>
-              <!-- /Responsive login button -->
+              </li>
+              <!-- / Login button -->
 
-              <!-- Responsive profile dropdown: show if authenticated -->
-              <ul
-                class="navbar-nav d-md-none auth-visible hidden justify-content-between"
-                style="min-height: 125px"
-              >
-                <li class="nav-item">
-                  <span class="user-info">
-                    <!-- Profile image should be set to the profile picture from the id token -->
-                    <img
-                      alt="Profile picture"
-                      class="nav-user-profile d-inline-block profile-image rounded-circle mr-3"
-                      width="50"
-                    />
-                    <!-- Show the user's full name from the id token here -->
-                    <h6 class="d-inline-block nav-user-name user-name"></h6>
-                  </span>
-                </li>
-                <li>
-                  <i class="fas fa-user mr-3"></i>
-                  <a href="/profile" class="route-link">Profile</a>
-                </li>
+              <!-- Fullsize dropdown: show if authenticated -->
+              <li class="nav-item dropdown auth-visible hidden">
+                <a class="nav-link dropdown-toggle" href="#" id="profileDropDown" data-toggle="dropdown">
+                  <!-- Profile image should be set to the profile picture from the id token -->
+                  <img alt="Profile picture" class="nav-user-profile profile-image rounded-circle" width="50" />
+                </a>
+                <div class="dropdown-menu">
+                  <!-- Show the user's full name from the id token here -->
+                  <div class="dropdown-header nav-user-name user-name"></div>
+                  <a href="/profile" class="dropdown-item dropdown-profile route-link">
+                    <i class="fas fa-user mr-3"></i> Profile
+                  </a>
+                  <a href="#" class="dropdown-item" id="qsLogoutBtn" onclick="logout()">
+                    <i class="fas fa-power-off mr-3"></i> Log out
+                  </a>
+                </div>
+              </li>
+              <!-- /Fullsize dropdown -->
+            </ul>
 
-                <li>
-                  <i class="fas fa-power-off mr-3"></i>
-                  <a href="#" id="qsLogoutBtn" onclick="logout()">Log out</a>
-                </li>
-              </ul>
-            </div>
+            <!-- Responsive login button: show if NOT authenticated -->
+            <ul class="navbar-nav d-md-none auth-invisible">
+              <button class="btn btn-primary btn-block auth-invisible hidden" id="qsLoginBtn" onclick="login()">
+                Log in
+              </button>
+            </ul>
+            <!-- /Responsive login button -->
+
+            <!-- Responsive profile dropdown: show if authenticated -->
+            <ul class="navbar-nav d-md-none auth-visible hidden justify-content-between" style="min-height: 125px">
+              <li class="nav-item">
+                <span class="user-info">
+                  <!-- Profile image should be set to the profile picture from the id token -->
+                  <img alt="Profile picture" class="nav-user-profile d-inline-block profile-image rounded-circle mr-3"
+                    width="50" />
+                  <!-- Show the user's full name from the id token here -->
+                  <h6 class="d-inline-block nav-user-name user-name"></h6>
+                </span>
+              </li>
+              <li>
+                <i class="fas fa-user mr-3"></i>
+                <a href="/profile" class="route-link">Profile</a>
+              </li>
+
+              <li>
+                <i class="fas fa-power-off mr-3"></i>
+                <a href="#" id="qsLogoutBtn" onclick="logout()">Log out</a>
+              </li>
+            </ul>
           </div>
-        </nav>
-      </div><!-- nav-container-->
+        </div>
+      </nav>
+    </div><!-- nav-container-->
 
-      <div id="main-content" class="container mt-5 flex-grow-1">
-        <div class="page hidden" id="content-home">
-          <div class="hero">
-            <img
-              class="mb-3 app-logo"
-              src="/images/logo.png"
-              alt="JavaScript logo"
-              width="75"
-            />
-            <h1 class="mb-4">B3 サンプルアプリ</h1>
+    <div id="main-content" class="container mt-5 flex-grow-1">
+      <div class="page hidden" id="content-home">
+        <div class="hero">
+          <img class="mb-3 app-logo" src="/images/logo.png" alt="JavaScript logo" width="75" />
+          <h1 class="mb-4">B3 サンプルアプリ</h1>
 
-            <p class="lead">
-              基本的なログイン機能を備えたユーザー投稿型アプリケーションのサンプルです。
-              まずはログインして、<a href="/profile" class="route-link">自分の投稿</a>から新しいメッセージを投稿してみよう。
-            </p>
+          <p class="lead">
+            基本的なログイン機能を備えたユーザー投稿型アプリケーションのサンプルです。
+            まずはログインして、<a href="/profile" class="route-link">自分の投稿</a>から新しいメッセージを投稿してみよう。
+          </p>
 
-            <p>このアプリには以下の機能があります。</p>
-            <ul>
-              <li>Auth0に登録したユーザでログイン・ログアウトできる。</li>
-              <li>ログイン中のユーザが、<ul>
+          <p>このアプリには以下の機能があります。</p>
+          <ul>
+            <li>Auth0に登録したユーザでログイン・ログアウトできる。</li>
+            <li>ログイン中のユーザが、<ul>
                 <li>投稿できる。</li>
                 <li>自分の投稿を一覧表示できる。</li>
                 <li>ユーザ名を指定してそのユーザの投稿を一覧表示できる。</li>
-              </ul></li>
-            </ul>
-          </div>
-
-          <div class="timeline auth-visible">
-            <h2 class="mt-5">指定ユーザーの投稿を表示する</h2>
-            <!-- ユーザー指定フォーム -->
-            <form class="form-inline" id="getForm">
-              <p class="form-group mb-1 auth-visible">
-                <label for="usrename">Username</label>
-                <input type="text" size="20" id="username" name="username" class="form-control" required></input>
-                <a href="#" class="btn btn-primary" id="call-user-api">取得</a>
-              </p>
-            </form>
-
-            <div class="alert alert-warning hidden" role="alert" id="user-result-alert"></div>
-
-            <!-- 指定したユーザーの新着投稿一覧 -->
-            <div class="reset-on-nav mb-3 w-100" id="user-result">
-              <table id="user-posts" border="border" class="w-100 hidden">
-                <thead><tr><th>投稿者</th><th>投稿時刻</th><th>本文</th></tr></thead>
-                <tbody></tbody>
-              </table>
-            </div>
-          </div>
+              </ul>
+            </li>
+          </ul>
         </div>
 
-        <div class="page hidden" id="content-profile">
-          <div class="container">
-            <div class="row align-items-center profile-header">
-              <div class="col-md-2">
-                <img
-                  alt="User's profile picture"
-                  class="rounded-circle img-fluid profile-image mb-3 mb-md-0"
-                />
-              </div>
-              <div class="col-md">
-                <h2 class="user-name"></h2>
-                <p class="lead text-muted user-email"></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="container w-100">
-            <h2>自分の投稿</h2>
-            <p>
-              自分の投稿の一覧を新しい順に表示します。
+        <div class="timeline auth-visible">
+          <h2 class="mt-5">指定ユーザーの投稿を表示する</h2>
+          <!-- ユーザー指定フォーム -->
+          <form class="form-inline" id="getForm">
+            <p class="form-group mb-1 auth-visible">
+              <label for="usrename">Username</label>
+              <input type="text" size="20" id="username" name="username" class="form-control" required></input>
+              <a href="#" class="btn btn-primary" id="call-user-api">取得</a>
             </p>
+          </form>
 
-            <p class="mb-1">
-              <a href="#" class="btn btn-primary mt-1" id="call-api">取得</a>
-            </p>
+          <div class="alert alert-warning hidden" role="alert" id="user-result-alert"></div>
 
-            <div class="alert alert-warning hidden" role="alert" id="result-alert"></div>
-
-            <div class="reset-on-nav w-100 mb-5 " id="result">
-              <table id="posts" border="border" class="w-100 hidden">
-                <thead><tr><th>投稿者</th><th>投稿時刻</th><th>本文</th></tr></thead>
-                <tbody></tbody>
-              </table>
-            </div>
-
-            <h2 class="mt-5">投稿する</h2>
-
-            <form class="form-inline" id="postForm">
-              <p class="form-group mb-1 auth-visible">
-                <input type="text" size="80" id="body" name="body" class="form-control" placeholder="本文"></input>
-                <input type="file" id="image" name="image" class="form-control"></input>
-                <a href="#" class="btn btn-primary" id="call-post-api">投稿</a>
-              </p>
-            </form>
-
-            <h2 class="mt-5">userinfo APIの結果(確認用)</h2>
-            <div class="row">
-              <pre class="rounded">
-                <code id="profile-data" class="json"></code></pre>
-            </div>
+          <!-- 指定したユーザーの新着投稿一覧 -->
+          <div class="reset-on-nav mb-3 w-100" id="user-result">
+            <table id="user-posts" border="border" class="w-100 hidden">
+              <thead>
+                <tr>
+                  <th>投稿者</th>
+                  <th>投稿時刻</th>
+                  <th>本文</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
           </div>
-
-        </div>
-
-        <div class="page hidden" id="content-external-api">
-          <!-- Auth0サンプルの残滓 -->
         </div>
       </div>
 
-      <footer class="bg-light text-center p-5">
-        <div class="logo"></div>
-        <p>
-          Security Camp 2021
-        </p>
-      </footer>
+      <div class="page hidden" id="content-profile">
+        <div class="container">
+          <div class="row align-items-center profile-header">
+            <div class="col-md-2">
+              <img alt="User's profile picture" class="rounded-circle img-fluid profile-image mb-3 mb-md-0" />
+            </div>
+            <div class="col-md">
+              <h2 class="user-name"></h2>
+              <p class="lead text-muted user-email"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="container w-100">
+          <h2>自分の投稿</h2>
+          <p>
+            自分の投稿の一覧を新しい順に表示します。
+          </p>
+
+          <p class="mb-1">
+            <a href="#" class="btn btn-primary mt-1" id="call-api">取得</a>
+          </p>
+
+          <div class="alert alert-warning hidden" role="alert" id="result-alert"></div>
+
+          <div class="reset-on-nav w-100 mb-5 " id="result">
+            <table id="posts" border="border" class="w-100 hidden">
+              <thead>
+                <tr>
+                  <th>投稿者</th>
+                  <th>投稿時刻</th>
+                  <th>本文</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <h2 class="mt-5">投稿する</h2>
+
+          <form class="form-inline" id="postForm">
+            <p class="form-group mb-1 auth-visible">
+              <input type="text" size="80" id="body" name="body" class="form-control" placeholder="本文"></input>
+              <input type="text" size="40" id="tagname" name="tagname" class="form-control" placeholder="タグ"></input>
+              <input type="file" id="image" name="image" class="form-control"></input>
+              <a href="#" class="btn btn-primary" id="call-post-api">投稿</a>
+            </p>
+          </form>
+
+          <h2 class="mt-5">userinfo APIの結果(確認用)</h2>
+          <div class="row">
+            <pre class="rounded">
+                <code id="profile-data" class="json"></code></pre>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="page hidden" id="content-external-api">
+        <!-- Auth0サンプルの残滓 -->
+      </div>
     </div>
 
-    <table class="hidden">
-      <tr id="post-template-row"><td class="post-username"></td><td class="post-date"></td><td class="post-body"><a href="#" target="_blank"><img src="" style="height: 1em; width: 1em"/></a><span class="text"></span></td></tr>
-    </table>
+    <footer class="bg-light text-center p-5">
+      <div class="logo"></div>
+      <p>
+        Security Camp 2021
+      </p>
+    </footer>
+  </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/app.js"></script>
-  </body>
+  <table class="hidden">
+    <tr id="post-template-row">
+      <td class="post-username"></td>
+      <td class="post-date"></td>
+      <td class="post-body">
+        <a href="#" target="_blank">
+          <img src="" style="height: 1em; width: 1em" />
+        </a>
+        <span class="text"></span>
+        <span class="tagname"></span>
+      </td>
+    </tr>
+  </table>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
 </html>
