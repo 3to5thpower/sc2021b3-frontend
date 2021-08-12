@@ -240,7 +240,7 @@ const callApiWithTag = async () => {
 
     const tagInfo = "test"
     if (tagInfo) {
-      querySelector('#tag-info').textContent = tagInfo
+      document.querySelector('#tag-info').textContent = tagInfo
     }
 
     eachElement("#tag-result-alert", (c) => c.classList.add("hidden"));
