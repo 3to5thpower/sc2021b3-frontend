@@ -312,7 +312,7 @@ window.onload = async () => {
     } else if (e.target.getAttribute("id") === "call-tag-api") {
       e.preventDefault();
       showContentFromUrl("/tagname");
-      callTagApi();
+      callApiWithTag();
     }
   });
 
