@@ -119,7 +119,6 @@ const callApi = async () => {
       } else {
         newRow.querySelector('.post-tagname').textContent = "-";
       }
-      //newRow.querySelector('.post-tagname').textContent = post.getElementsByTagName;
       resultTbody.appendChild(newRow);
     });
 
